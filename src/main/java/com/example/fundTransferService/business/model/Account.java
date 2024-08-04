@@ -23,13 +23,16 @@ public class Account {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @SequenceGenerator(name = "sequenceGenerator")
     @Column(name = "id")
     private Long id;
 
     @Column(name = "currency")
     private String currency;
+
+    @Column(name = "iban")
+    private String iban;
 
     // TODO investigate to see if it would be better to use varchar in the database for more accuracy
     @Column(name = "balance")

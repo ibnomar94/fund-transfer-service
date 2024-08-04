@@ -7,4 +7,4 @@ CREATE TABLE IF NOT EXISTS account_holder (
   primary key (id)
   );
 
-CREATE INDEX user_ssn_idx on account_holder (ssn);
+CREATE INDEX account_holder_ssn_idx on account_holder (ssn);

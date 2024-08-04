@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Transactional
 @RequiredArgsConstructor
-
 public class AccountHolderService {
 
     private final AccountHolderRepository accountHolderRepository;
