@@ -20,6 +20,7 @@ public class AccountService {
     private final AccountRepository accountRepository;
     private final AccountHolderRepository accountHolderRepository;
     private final AccountFactory accountFactory;
+    private final CurrencyConversionService currencyConversionService;
 
 
     public Account createNewAccount(Long accountHolderId, AccountCreationRequest accountCreationRequest) {

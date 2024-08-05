@@ -3,7 +3,6 @@ package com.example.fundTransferService.business.controller;
 
 import java.util.List;
 
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +19,7 @@ public class AccountHolderController {
 
     private final AccountHolderService accountHolderService;
 
-    @GetMapping(path = "/list", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/list")
     public List<AccountHolder> listAllAccountHolders() {
         return accountHolderService.getAllAccountHolders();
     }
