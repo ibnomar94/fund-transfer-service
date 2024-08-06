@@ -1,7 +1,10 @@
 package com.example.fundTransferService.business.client;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpMethod;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -26,9 +29,12 @@ public class FreeCurrencyApiClient {
 
     private String LATEST_CONVERSION_ENDPOINT = "/v1/latest";
 
-    /**
+    /*
      * The purpose of this method is to get the conversion 'rate' oc currencies based on USD
+     * @Cacheable :
+     * Since the API is updated daily, it would be better from a performance point of view to cache its value
      */
+    @Cacheable(value = "getLatestRates")
     public FreeCurrencyApiResponse getLatestRates() {
 
         return restTemplate.exchange(
@@ -37,6 +43,13 @@ public class FreeCurrencyApiClient {
                 null,
                 FreeCurrencyApiResponse.class).getBody();
     }
+
+    /*
+     * Since the API is updated daily, it would be better for performance clear the cache every day at midnight
+     */
+    @Scheduled(cron = "@midnight")
+    @CacheEvict(value = "getLatestRates")
+    public void clearGetLatestRatesCache() {}
 
     private String getLatestUrl() {
         return UriComponentsBuilder.fromHttpUrl(BASE_URL + LATEST_CONVERSION_ENDPOINT)
