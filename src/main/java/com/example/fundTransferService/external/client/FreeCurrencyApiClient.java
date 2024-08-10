@@ -1,4 +1,4 @@
-package com.example.fundTransferService.business.client;
+package com.example.fundTransferService.external.client;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.example.fundTransferService.business.dto.response.FreeCurrencyApiResponse;
+import com.example.fundTransferService.external.dto.FreeCurrencyApiResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -49,7 +49,8 @@ public class FreeCurrencyApiClient {
      */
     @Scheduled(cron = "@midnight")
     @CacheEvict(value = "getLatestRates")
-    public void clearGetLatestRatesCache() {}
+    public void clearGetLatestRatesCache() {
+    }
 
     private String getLatestUrl() {
         return UriComponentsBuilder.fromHttpUrl(BASE_URL + LATEST_CONVERSION_ENDPOINT)

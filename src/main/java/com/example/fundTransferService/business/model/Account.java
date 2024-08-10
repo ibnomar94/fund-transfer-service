@@ -2,6 +2,8 @@ package com.example.fundTransferService.business.model;
 
 import java.math.BigDecimal;
 
+import com.example.fundTransferService.exception.InsufficientFundsException;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -41,4 +43,18 @@ public class Account {
     @ManyToOne
     @JoinColumn(name = "account_holder_id")
     private AccountHolder accountHolder;
+
+
+    public void credit(BigDecimal amount) {
+        this.balance = this.balance.add(amount);
+    }
+
+    public void debit(BigDecimal amount) {
+        if (this.balance.compareTo(amount) < 0) {
+            throw new InsufficientFundsException();
+        }
+        this.balance = this.balance.subtract(amount);
+    }
+
+
 }

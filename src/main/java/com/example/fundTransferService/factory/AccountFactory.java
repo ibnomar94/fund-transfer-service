@@ -12,7 +12,6 @@ import com.example.fundTransferService.business.model.AccountHolder;
 @Service
 public class AccountFactory {
 
-
     public static final String LUXEMBOURG_INITIALS = "LU";
 
     public Account from(AccountCreationRequest accountCreationRequest, AccountHolder accountHolder) {

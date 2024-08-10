@@ -1,4 +1,4 @@
-package com.example.fundTransferService.business.dto.response;
+package com.example.fundTransferService.external.dto;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
