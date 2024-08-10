@@ -11,12 +11,15 @@ import com.example.fundTransferService.business.dto.requests.FundsTransferReques
 import com.example.fundTransferService.business.dto.response.FundsTransferResponse;
 import com.example.fundTransferService.business.model.Account;
 import com.example.fundTransferService.business.model.AccountHolder;
+import com.example.fundTransferService.business.model.TransactionHistory;
 import com.example.fundTransferService.business.respository.AccountHolderRepository;
 import com.example.fundTransferService.business.respository.AccountRepository;
+import com.example.fundTransferService.business.respository.TransactionHistoryRepository;
 import com.example.fundTransferService.business.rule.FundsTransferRule;
 import com.example.fundTransferService.exception.CurrencyNotSupportedException;
 import com.example.fundTransferService.factory.AccountFactory;
 import com.example.fundTransferService.factory.FundsTransferFactory;
+import com.example.fundTransferService.factory.TransactionHistoryFactory;
 
 import lombok.AllArgsConstructor;
 
@@ -29,9 +32,11 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
     private final AccountHolderRepository accountHolderRepository;
+    private final TransactionHistoryRepository transactionHistoryRepository;
 
     private final AccountFactory accountFactory;
     private final FundsTransferFactory fundsTransferFactory;
+    private final TransactionHistoryFactory transactionHistoryFactory;
 
     private final List<FundsTransferRule> fundsTransferRules;
 
@@ -47,13 +52,15 @@ public class AccountService {
         FundsTransferOrder fundsTransferOrder = fundsTransferFactory.toFundsTransferOrder(fundTransferRequest);
         fundsTransferRules.forEach(fundsTransferRule -> fundsTransferRule.checkRule(fundsTransferOrder));
         setExchangeRate(fundsTransferOrder);
-        return executeTransfer(fundsTransferOrder);
+        executeTransfer(fundsTransferOrder);
+        TransactionHistory transactionHistory = transactionHistoryFactory.toTransactionHistory(fundsTransferOrder);
+        transactionHistoryRepository.save(transactionHistory);
+        return new FundsTransferResponse(transactionHistory.getTransactionId(),transactionHistory.getExchangeRate());
     }
 
-    private FundsTransferResponse executeTransfer(FundsTransferOrder fundsTransferOrder) {
+    private void executeTransfer(FundsTransferOrder fundsTransferOrder) {
         fundsTransferOrder.getAccountToDebit().debit(fundsTransferOrder.getFundsTransferRequest().getAmount());
         fundsTransferOrder.getAccountToCredit().credit(fundsTransferOrder.getTrueValueOfTransfer());
-        return new FundsTransferResponse("123", fundsTransferOrder.getExchangeRate());
     }
 
     private void setExchangeRate(FundsTransferOrder fundsTransferOrder) {

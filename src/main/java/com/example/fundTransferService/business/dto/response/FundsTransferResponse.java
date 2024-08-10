@@ -12,5 +12,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class FundsTransferResponse {
     String transactionId;
-    BigDecimal changeRate;
+    BigDecimal exchangeRate;
 }
