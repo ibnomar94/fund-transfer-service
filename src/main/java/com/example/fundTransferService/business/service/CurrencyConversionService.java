@@ -36,6 +36,7 @@ public class CurrencyConversionService {
         FreeCurrencyApiResponse freeCurrencyApiResponse = this.getLatestRates();
         Map<Currency, BigDecimal> currentRateMapping = freeCurrencyApiResponse.getCurrencyRateMap();
         if (currentRateMapping.containsKey(baseCurrency) && currentRateMapping.containsKey(targetCurrency)) {
+            // since the API returns exchange rates in comparison to USD we need to perform a 'cross multiplication' operation inorder to find the true exchange rate
             return currentRateMapping.get(targetCurrency).divide(currentRateMapping.get(baseCurrency), API_NUMBER_OF_DECIMAL_PLACES, RoundingMode.CEILING);
         } else {
             throw new CurrencyNotSupportedException(currentRateMapping.containsKey(baseCurrency) ? targetCurrency : baseCurrency);

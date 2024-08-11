@@ -8,6 +8,9 @@ import com.example.fundTransferService.business.model.Account;
 import lombok.Getter;
 import lombok.Setter;
 
+/*
+* This object is a POJO object used to carry a transfer order details
+* */
 @Setter
 @Getter
 public class FundsTransferOrder {

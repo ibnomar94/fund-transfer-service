@@ -16,6 +16,9 @@ public class AccountCreationRequest {
     private String currency;
 
 
+    /*
+    * The purpose is to have more granular control over the validity of the request value and the handling of invalid values
+    * */
     public void setCurrency(String currency) {
         this.currency = currency;
         try {

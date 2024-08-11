@@ -54,6 +54,9 @@ public class AccountService {
         return account;
     }
 
+    /*
+    * Method is synchronized inorder to guarantee that a single account is not debited twice in the system as a result of it being modified by two requests
+    * */
     public synchronized FundsTransferResponse transfer(FundsTransferRequest fundTransferRequest) {
         log.info("Attempting transfer from {} to {} an amount of {}", fundTransferRequest.getAccountToDebitIban(), fundTransferRequest.getAccountToCreditIban(), fundTransferRequest.getAmount());
         FundsTransferOrder fundsTransferOrder = fundsTransferFactory.toFundsTransferOrder(fundTransferRequest);
