@@ -17,6 +17,7 @@ import com.example.fundTransferService.business.dto.response.FundsTransferRespon
 import com.example.fundTransferService.business.model.Account;
 import com.example.fundTransferService.business.service.AccountService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -27,14 +28,14 @@ public class AccountController {
     private final AccountService accountService;
 
     @PostMapping(value = "/add/{accountHolderId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AccountCreationResponse> addNewAccount(@PathVariable Long accountHolderId, @RequestBody AccountCreationRequest accountCreationRequest) {
+    public ResponseEntity<AccountCreationResponse> addNewAccount(@PathVariable Long accountHolderId, @RequestBody @Valid AccountCreationRequest accountCreationRequest) {
         Account account = accountService.createNewAccount(accountHolderId, accountCreationRequest);
         AccountCreationResponse accountCreationResponse = new AccountCreationResponse(account.getIban());
         return new ResponseEntity<>(accountCreationResponse, HttpStatus.CREATED);
     }
 
     @PostMapping(value = "/transfer", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<FundsTransferResponse> transfer(@RequestBody FundsTransferRequest fundTransferRequest) {
+    public ResponseEntity<FundsTransferResponse> transfer(@RequestBody @Valid FundsTransferRequest fundTransferRequest) {
         return new ResponseEntity<>(accountService.transfer(fundTransferRequest), HttpStatus.OK);
     }
 
