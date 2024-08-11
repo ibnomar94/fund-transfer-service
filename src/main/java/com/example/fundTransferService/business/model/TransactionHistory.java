@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -40,7 +39,12 @@ public class TransactionHistory {
     @JoinColumn(name = "debited_id")
     private Account debitedAccount;
 
+    @Column(name = "amount")
+    private BigDecimal amount;
+
     @Column(name = "exchange_rate")
     private BigDecimal exchangeRate;
 
+    @Column(name = "exchange_fee")
+    private BigDecimal exchangeFee;
 }

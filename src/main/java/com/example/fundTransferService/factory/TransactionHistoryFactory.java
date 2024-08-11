@@ -18,7 +18,9 @@ public class TransactionHistoryFactory {
         transactionHistory.setCreditedAccount(fundsTransferOrder.getAccountToCredit());
         transactionHistory.setDebitedAccount(fundsTransferOrder.getAccountToDebit());
         transactionHistory.setExchangeRate(fundsTransferOrder.getExchangeRate());
+        transactionHistory.setExchangeFee(fundsTransferOrder.getExchangeFee());
         transactionHistory.setTransactionId(generateTransactionId(fundsTransferOrder));
+        transactionHistory.setAmount(fundsTransferOrder.getFundsTransferRequest().getAmount());
         return transactionHistory;
     }
 

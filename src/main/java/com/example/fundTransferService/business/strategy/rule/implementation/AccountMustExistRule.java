@@ -1,9 +1,9 @@
-package com.example.fundTransferService.business.rule.implementation;
+package com.example.fundTransferService.business.strategy.rule.implementation;
 
 import org.springframework.stereotype.Component;
 
 import com.example.fundTransferService.business.domain.FundsTransferOrder;
-import com.example.fundTransferService.business.rule.FundsTransferRule;
+import com.example.fundTransferService.business.strategy.rule.FundsTransferRule;
 import com.example.fundTransferService.exception.InvalidAccountException;
 
 @Component

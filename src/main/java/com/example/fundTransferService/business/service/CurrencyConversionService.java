@@ -16,9 +16,11 @@ import com.example.fundTransferService.external.client.FreeCurrencyApiClient;
 import com.example.fundTransferService.external.dto.FreeCurrencyApiResponse;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
 @Service
+@Slf4j
 public class CurrencyConversionService {
 
     private final FreeCurrencyApiClient freeCurrencyApiClient;
@@ -41,7 +43,9 @@ public class CurrencyConversionService {
 
     private FreeCurrencyApiResponse getLatestRates() {
         try {
-            return freeCurrencyApiClient.getLatestRates();
+            FreeCurrencyApiResponse freeCurrencyApiResponse = freeCurrencyApiClient.getLatestRates();
+            log.info("Current Rates: " + freeCurrencyApiResponse.getCurrencyRateMap());
+            return freeCurrencyApiResponse;
         } catch (RestClientException restClientException) {
             throw new UnableToRetrieveExchangeRateException(restClientException.getMessage());
         }

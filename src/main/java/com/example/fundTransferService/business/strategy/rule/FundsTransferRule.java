@@ -1,4 +1,4 @@
-package com.example.fundTransferService.business.rule;
+package com.example.fundTransferService.business.strategy.rule;
 
 import com.example.fundTransferService.business.domain.FundsTransferOrder;
 

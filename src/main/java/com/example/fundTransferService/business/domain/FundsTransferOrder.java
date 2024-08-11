@@ -15,6 +15,7 @@ public class FundsTransferOrder {
     private Account accountToDebit;
     private Account accountToCredit;
     private BigDecimal exchangeRate;
+    private BigDecimal exchangeFee = BigDecimal.ZERO;
 
     public FundsTransferOrder(FundsTransferRequest fundsTransferRequest) {
         this.fundsTransferRequest = fundsTransferRequest;

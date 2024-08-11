@@ -35,8 +35,7 @@ public class AccountController {
 
     @PostMapping(value = "/transfer", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FundsTransferResponse> transfer(@RequestBody FundsTransferRequest fundTransferRequest) {
-        FundsTransferResponse fundTransferResponse = accountService.transfer(fundTransferRequest);
-        return new ResponseEntity<>(fundTransferResponse, HttpStatus.OK);
+        return new ResponseEntity<>(accountService.transfer(fundTransferRequest), HttpStatus.OK);
     }
 
 }
