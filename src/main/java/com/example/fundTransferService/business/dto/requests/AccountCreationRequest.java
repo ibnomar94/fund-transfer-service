@@ -1,14 +1,27 @@
 package com.example.fundTransferService.business.dto.requests;
 
 
-import jakarta.validation.constraints.NotBlank;
+import com.example.fundTransferService.business.domain.Currency;
+import com.example.fundTransferService.exception.CurrencyNotSupportedException;
+
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class AccountCreationRequest {
 
-    @NotBlank
+    private Currency accountCurrency;
+
+    @NotNull
     private String currency;
+
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+        try {
+            this.accountCurrency = Currency.valueOf(currency);
+        } catch (IllegalArgumentException ex) {
+            throw new CurrencyNotSupportedException(currency);
+        }
+    }
 }

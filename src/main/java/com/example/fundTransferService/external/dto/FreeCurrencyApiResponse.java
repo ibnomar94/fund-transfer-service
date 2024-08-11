@@ -3,6 +3,7 @@ package com.example.fundTransferService.external.dto;
 import java.math.BigDecimal;
 import java.util.HashMap;
 
+import com.example.fundTransferService.business.domain.Currency;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -18,5 +19,5 @@ import lombok.Setter;
 public class FreeCurrencyApiResponse {
 
     @JsonProperty("data")
-    HashMap<String, BigDecimal> currencyRateMap;
+    HashMap<Currency, BigDecimal> currencyRateMap;
 }

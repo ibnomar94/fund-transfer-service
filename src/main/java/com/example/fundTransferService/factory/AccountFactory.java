@@ -16,7 +16,7 @@ public class AccountFactory {
 
     public Account from(AccountCreationRequest accountCreationRequest, AccountHolder accountHolder) {
         Account account = new Account();
-        account.setCurrency(accountCreationRequest.getCurrency());
+        account.setCurrency(accountCreationRequest.getAccountCurrency());
         account.setIban(generateValidIban(accountHolder));
         account.setAccountHolder(accountHolder);
         account.setBalance(BigDecimal.valueOf(0.0));

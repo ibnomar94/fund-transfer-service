@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.example.fundTransferService.business.domain.Currency;
 import com.example.fundTransferService.business.domain.FundsTransferOrder;
 import com.example.fundTransferService.business.dto.requests.AccountCreationRequest;
 import com.example.fundTransferService.business.dto.requests.FundsTransferRequest;
@@ -78,14 +79,14 @@ public class AccountService {
     }
 
     private void setExchangeRate(FundsTransferOrder fundsTransferOrder) {
-        String baseCurrency = fundsTransferOrder.getAccountToDebit().getCurrency();
-        String targetCurrency = fundsTransferOrder.getAccountToCredit().getCurrency();
+        Currency baseCurrency = fundsTransferOrder.getAccountToDebit().getCurrency();
+        Currency targetCurrency = fundsTransferOrder.getAccountToCredit().getCurrency();
         try {
             BigDecimal exchangeRate = currencyConversionService.getCurrentExchangeRate(baseCurrency, targetCurrency);
             fundsTransferOrder.setExchangeRate(exchangeRate);
             log.info("calculated exchange rate: " + exchangeRate);
         } catch (CurrencyNotSupportedException currencyNotSupportedException) {
-            String failedCurrency = currencyNotSupportedException.getMessage();
+            Currency failedCurrency = Currency.valueOf(currencyNotSupportedException.getMessage());
             String iban = fundsTransferOrder.getAccountToDebit().getCurrency().equals(failedCurrency) ? fundsTransferOrder.getAccountToDebit().getIban() : fundsTransferOrder.getAccountToCredit().getIban();
             throw new CurrencyNotSupportedException(iban, failedCurrency);
         }

@@ -2,10 +2,13 @@ package com.example.fundTransferService.business.model;
 
 import java.math.BigDecimal;
 
+import com.example.fundTransferService.business.domain.Currency;
 import com.example.fundTransferService.exception.InsufficientFundsException;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,7 +34,8 @@ public class Account {
     private Long id;
 
     @Column(name = "currency")
-    private String currency;
+    @Enumerated(EnumType.STRING)
+    private Currency currency;
 
     @Column(name = "iban")
     private String iban;
