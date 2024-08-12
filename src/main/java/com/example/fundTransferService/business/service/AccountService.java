@@ -1,5 +1,8 @@
 package com.example.fundTransferService.business.service;
 
+import static com.example.fundTransferService.exception.ExchangeStrategyException.MULTIPLE_VALID_STRATEGY;
+import static com.example.fundTransferService.exception.ExchangeStrategyException.NO_VALID_STRATEGY;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
@@ -55,7 +58,7 @@ public class AccountService {
     }
 
     /*
-    * Method is synchronized inorder to guarantee that a single account is not debited twice in the system as a result of it being modified by two requests
+    * Method is synchronized inorder to guarantee that a single account is not debited twice in the system as a result of it being modified by two simultaneous requests
     * */
     public synchronized FundsTransferResponse transfer(FundsTransferRequest fundTransferRequest) {
         log.info("Attempting transfer from {} to {} an amount of {}", fundTransferRequest.getAccountToDebitIban(), fundTransferRequest.getAccountToCreditIban(), fundTransferRequest.getAmount());
@@ -73,10 +76,10 @@ public class AccountService {
     private ExchangeStrategy getValidExchangeStrategy(FundsTransferOrder fundsTransferOrder) {
         Set<ExchangeStrategy> exchangeStrategySet = exchangeStrategies.stream().filter(exchangeStrategy -> exchangeStrategy.isValid(fundsTransferOrder)).collect(Collectors.toSet());
         if (exchangeStrategySet.isEmpty()) {
-            throw new ExchangeStrategyException("couldn't find a valid exchange strategy to execute");
+            throw new ExchangeStrategyException(NO_VALID_STRATEGY);
         }
         if (exchangeStrategySet.size() > 1) {
-            throw new ExchangeStrategyException("Found multiple valid executions");
+            throw new ExchangeStrategyException(MULTIPLE_VALID_STRATEGY);
         }
         return exchangeStrategySet.stream().findFirst().get();
     }
