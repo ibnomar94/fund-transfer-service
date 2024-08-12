@@ -1,10 +1,13 @@
 package com.example.fundTransferService.business.dto.requests;
 
 
+import java.math.BigDecimal;
+
 import com.example.fundTransferService.business.domain.Currency;
 import com.example.fundTransferService.exception.CurrencyNotSupportedException;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 
 @Getter
@@ -15,10 +18,14 @@ public class AccountCreationRequest {
     @NotNull
     private String currency;
 
+    @NotNull
+    @PositiveOrZero
+    private BigDecimal initialBalance;
+
 
     /*
-    * The purpose is to have more granular control over the validity of the request value and the handling of invalid values
-    * */
+     * The purpose is to have more granular control over the validity of the request value and the handling of invalid values
+     * */
     public void setCurrency(String currency) {
         this.currency = currency;
         try {

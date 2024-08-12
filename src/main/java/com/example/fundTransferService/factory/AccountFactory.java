@@ -1,7 +1,7 @@
 package com.example.fundTransferService.factory;
 
-import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Random;
 
 import org.springframework.stereotype.Service;
 
@@ -19,12 +19,16 @@ public class AccountFactory {
         account.setCurrency(accountCreationRequest.getAccountCurrency());
         account.setIban(generateValidIban(accountHolder));
         account.setAccountHolder(accountHolder);
-        account.setBalance(BigDecimal.valueOf(0.0));
+        account.setBalance(accountCreationRequest.getInitialBalance());
         return account;
     }
 
 
+    /*
+    * In a real world IBAN is generated in a way that guarantees no collision of values
+    * */
     private String generateValidIban(AccountHolder accountHolder) {
-        return LUXEMBOURG_INITIALS + accountHolder.getId() + Instant.now().getEpochSecond();
+        Random random = new Random();
+        return LUXEMBOURG_INITIALS + accountHolder.getId() + Instant.now().getEpochSecond() + (random.nextInt(900) + 100);
     }
 }
