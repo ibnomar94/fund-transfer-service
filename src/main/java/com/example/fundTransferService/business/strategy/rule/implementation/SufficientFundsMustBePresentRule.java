@@ -7,7 +7,7 @@ import com.example.fundTransferService.business.strategy.rule.FundsTransferRule;
 import com.example.fundTransferService.exception.InsufficientFundsException;
 
 @Component
-public class InsufficientFundsRule implements FundsTransferRule {
+public class SufficientFundsMustBePresentRule implements FundsTransferRule {
 
     public void checkRule(FundsTransferOrder fundsTransfer) {
         if (fundsTransfer.getAccountToDebit().getBalance().compareTo(fundsTransfer.getFundsTransferRequest().getAmount()) < 0) {
