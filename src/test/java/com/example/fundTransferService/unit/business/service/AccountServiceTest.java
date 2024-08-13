@@ -1,4 +1,4 @@
-package com.example.fundTransferService.business.service;
+package com.example.fundTransferService.unit.business.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -6,7 +6,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import static com.example.fundTransferService.TestDataUtils.generateFundsTransferRequest;
-import static com.example.fundTransferService.TestDataUtils.getFundsTransferOrder;
+import static com.example.fundTransferService.TestDataUtils.generateFundsTransferOrder;
 import static com.example.fundTransferService.exception.ExchangeStrategyException.MULTIPLE_VALID_STRATEGY;
 import static com.example.fundTransferService.exception.ExchangeStrategyException.NO_VALID_STRATEGY;
 
@@ -25,6 +25,8 @@ import com.example.fundTransferService.business.dto.requests.FundsTransferReques
 import com.example.fundTransferService.business.respository.AccountHolderRepository;
 import com.example.fundTransferService.business.respository.AccountRepository;
 import com.example.fundTransferService.business.respository.TransactionHistoryRepository;
+import com.example.fundTransferService.business.service.AccountService;
+import com.example.fundTransferService.business.service.CurrencyConversionService;
 import com.example.fundTransferService.business.strategy.exchange.implementation.DifferentCurrencyStrategy;
 import com.example.fundTransferService.business.strategy.exchange.implementation.SameCurrencyStrategy;
 import com.example.fundTransferService.business.strategy.rule.FundsTransferRule;
@@ -75,7 +77,7 @@ public class AccountServiceTest {
     @Test
     void transfer_noValidExecutionStrategy_exceptionIsThrown() {
         FundsTransferRequest fundsTransferRequest = generateFundsTransferRequest("LU1", "LU2", BigDecimal.TEN);
-        FundsTransferOrder fundsTransferOrder = getFundsTransferOrder(fundsTransferRequest, Currency.EUR, Currency.EUR, BigDecimal.ZERO, BigDecimal.TEN);
+        FundsTransferOrder fundsTransferOrder = generateFundsTransferOrder(fundsTransferRequest, Currency.EUR, Currency.EUR, BigDecimal.ZERO, BigDecimal.TEN);
 
         when(fundsTransferFactory.toFundsTransferOrder(fundsTransferRequest)).thenReturn(fundsTransferOrder);
         when(currencyConversionService.getCurrentExchangeRate(any(), any())).thenReturn(BigDecimal.ONE);
@@ -89,7 +91,7 @@ public class AccountServiceTest {
     @Test
     void transfer_multipleValidExecutionStrategy_exceptionIsThrown() {
         FundsTransferRequest fundsTransferRequest = generateFundsTransferRequest("LU1", "LU2", BigDecimal.TEN);
-        FundsTransferOrder fundsTransferOrder = getFundsTransferOrder(fundsTransferRequest, Currency.EUR, Currency.EUR, BigDecimal.ZERO, BigDecimal.TEN);
+        FundsTransferOrder fundsTransferOrder = generateFundsTransferOrder(fundsTransferRequest, Currency.EUR, Currency.EUR, BigDecimal.ZERO, BigDecimal.TEN);
 
         when(fundsTransferFactory.toFundsTransferOrder(fundsTransferRequest)).thenReturn(fundsTransferOrder);
         when(currencyConversionService.getCurrentExchangeRate(any(), any())).thenReturn(BigDecimal.ONE);
@@ -105,7 +107,7 @@ public class AccountServiceTest {
     @Test
     void transfer_currencyConversionServiceException_exceptionIsReformatted() {
         FundsTransferRequest fundsTransferRequest = generateFundsTransferRequest("LU1", "LU2", BigDecimal.TEN);
-        FundsTransferOrder fundsTransferOrder = getFundsTransferOrder(fundsTransferRequest, Currency.USD, Currency.EUR, BigDecimal.ZERO, BigDecimal.TEN);
+        FundsTransferOrder fundsTransferOrder = generateFundsTransferOrder(fundsTransferRequest, Currency.USD, Currency.EUR, BigDecimal.ZERO, BigDecimal.TEN);
 
         when(fundsTransferFactory.toFundsTransferOrder(fundsTransferRequest)).thenReturn(fundsTransferOrder);
         when(currencyConversionService.getCurrentExchangeRate(any(), any())).thenThrow(new CurrencyNotSupportedException(Currency.USD));

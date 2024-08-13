@@ -1,4 +1,4 @@
-package com.example.fundTransferService.external.client;
+package com.example.fundTransferService.integration.client.external;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,6 +12,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.example.fundTransferService.external.client.FreeCurrencyApiClient;
 import com.example.fundTransferService.external.dto.FreeCurrencyApiResponse;
 
 @SpringBootTest
@@ -22,7 +23,6 @@ public class FreeCurrencyApiClientTest {
 
     @Autowired
     private CacheManager cacheManager;
-
 
     @BeforeEach
     public void before() throws Exception {
@@ -39,7 +39,5 @@ public class FreeCurrencyApiClientTest {
         assertEquals(0, ((Map) cacheManager.getCache("getLatestRates").getNativeCache()).size());
         freeCurrencyApiClient.getLatestRates();
         assertEquals(1, ((Map) cacheManager.getCache("getLatestRates").getNativeCache()).size());
-        freeCurrencyApiClient.getLatestRates();
-
     }
 }

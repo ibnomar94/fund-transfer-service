@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import com.example.fundTransferService.business.domain.Currency;
 import com.example.fundTransferService.business.domain.FundsTransferOrder;
+import com.example.fundTransferService.business.dto.requests.AccountCreationRequest;
 import com.example.fundTransferService.business.dto.requests.FundsTransferRequest;
 import com.example.fundTransferService.business.model.Account;
 import com.example.fundTransferService.business.model.AccountHolder;
@@ -34,7 +35,14 @@ public class TestDataUtils {
         return transactionHistory;
     }
 
-    public static FundsTransferOrder getFundsTransferOrder(FundsTransferRequest fundsTransferRequest, Currency debitAccountCurrency, Currency creditAccountCurrency, BigDecimal debitAccountAmount, BigDecimal creditAccountAmount) {
+    public static AccountCreationRequest generateAccountCreationRequest(Currency currency, BigDecimal initialBalance) {
+        AccountCreationRequest accountCreationRequest = new AccountCreationRequest();
+        accountCreationRequest.setCurrency(currency.toString());
+        accountCreationRequest.setInitialBalance(initialBalance);
+        return accountCreationRequest;
+    }
+
+    public static FundsTransferOrder generateFundsTransferOrder(FundsTransferRequest fundsTransferRequest, Currency debitAccountCurrency, Currency creditAccountCurrency, BigDecimal debitAccountAmount, BigDecimal creditAccountAmount) {
         FundsTransferOrder fundsTransferOrder = new FundsTransferOrder(fundsTransferRequest);
         fundsTransferOrder.setAccountToDebit(generateTestAccount(fundsTransferRequest.getAccountToDebitIban(), debitAccountCurrency, debitAccountAmount));
         fundsTransferOrder.setAccountToCredit(generateTestAccount(fundsTransferRequest.getAccountToCreditIban(), creditAccountCurrency, creditAccountAmount));

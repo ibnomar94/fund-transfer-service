@@ -1,4 +1,4 @@
-package com.example.fundTransferService.business.service;
+package com.example.fundTransferService.unit.business.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.example.fundTransferService.business.domain.Currency;
+import com.example.fundTransferService.business.service.CurrencyConversionService;
 import com.example.fundTransferService.exception.CurrencyNotSupportedException;
 import com.example.fundTransferService.external.client.FreeCurrencyApiClient;
 import com.example.fundTransferService.external.dto.FreeCurrencyApiResponse;
