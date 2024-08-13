@@ -1,5 +1,5 @@
 This service is mainly responsible for managing transfers between 'Accounts'.
-Quick guide:
+## Quick guide:
 
     - To add a new table, alter an existing one or any other db operation please add a 'migration' file in src/main/resources/db.migration
 
@@ -34,6 +34,6 @@ Quick guide:
     - Swagger is used to document rest APIs. check: http://localhost:8080/swagger-ui/index.html#
 
 
-Testing:
+## Testing:
     Unit and Integrations tests were added for different components in the system. but note that, some functionalities were left out of testing on purpose to save time. the reason is that those
     components, like adding account holders or creating accounts are kind of out of scope of the task and only serve a complementary purpose.
