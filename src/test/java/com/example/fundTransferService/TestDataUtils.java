@@ -9,6 +9,10 @@ import com.example.fundTransferService.business.dto.requests.FundsTransferReques
 import com.example.fundTransferService.business.model.Account;
 import com.example.fundTransferService.business.model.AccountHolder;
 import com.example.fundTransferService.business.model.TransactionHistory;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 public class TestDataUtils {
 
@@ -56,5 +60,16 @@ public class TestDataUtils {
         fundsTransferOrder.setAccountToDebit(generateTestAccount(fundsTransferRequest.getAccountToDebitIban(), debitAccountCurrency, debitAccountAmount));
         fundsTransferOrder.setAccountToCredit(generateTestAccount(fundsTransferRequest.getAccountToCreditIban(), creditAccountCurrency, creditAccountAmount));
         return fundsTransferOrder;
+    }
+
+    public static String getRequestBodyJson(Object object){
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        try {
+            return ow.writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

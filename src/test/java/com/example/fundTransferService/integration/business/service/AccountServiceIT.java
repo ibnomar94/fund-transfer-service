@@ -15,8 +15,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
@@ -40,7 +38,6 @@ import com.example.fundTransferService.external.client.FreeCurrencyApiClient;
 @SpringJUnitConfig
 @ContextConfiguration(classes = {FundTransferServiceApplication.class})
 @TestPropertySource(locations = "classpath:/application-test.properties")
-@ExtendWith(MockitoExtension.class)
 public class AccountServiceIT {
 
     public static final String DEBIT_ACCOUNT_IBAN = "LU1";
@@ -78,8 +75,6 @@ public class AccountServiceIT {
         accountToCredit.setAccountHolder(creditAccountHolder);
         accountToUSD.setAccountHolder(creditAccountHolder);
         accountRepository.saveAll(List.of(accountToDebit, accountToCredit, accountToUSD));
-
-
     }
 
     @Test
@@ -117,7 +112,7 @@ public class AccountServiceIT {
         assertEquals(accountRepository.findByIban(DEBIT_ACCOUNT_IBAN).get().getBalance(), BigDecimal.valueOf(200));
         assertEquals(accountRepository.findByIban(CREDIT_ACCOUNT_USD_IBAN).get().getBalance(), BigDecimal.ZERO);
         assertEquals(transactionHistoryRepository.findAll().size(), 0);
-        assertEquals(exception.getMessage(),"Account with IBAN: LU1 does not have sufficient balance to execute this transaction");
+        assertEquals(exception.getMessage(), "Account with IBAN: LU1 does not have sufficient balance to execute this transaction");
     }
 
 
