@@ -21,6 +21,15 @@ public class TestDataUtils {
         return account;
     }
 
+    public static AccountHolder generateTestAccountHolder(String firstName, String lastName, String ssn, String mainAddress) {
+        AccountHolder accountHolder = new AccountHolder();
+        accountHolder.setFirstName(firstName);
+        accountHolder.setLastName(lastName);
+        accountHolder.setSsn(ssn);
+        accountHolder.setMainAddress(mainAddress);
+        return accountHolder;
+    }
+
     public static FundsTransferRequest generateFundsTransferRequest(String accountToDebitIban, String accountToCreditIban, BigDecimal amount) {
         FundsTransferRequest fundsTransferRequest = new FundsTransferRequest();
         fundsTransferRequest.setAmount(amount);
