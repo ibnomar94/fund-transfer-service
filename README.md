@@ -6,13 +6,12 @@ This service is mainly responsible for managing transfers between 'Accounts'.
     - The current DB configuration is using MYSQL db and the configuration properties are found in src/main/resources/application.properties. you can H2 in memory db by commenting the
         `MySql Configuration` part and in commenting `H2 Configuration` part. Note: the current H2 configuration persists the DB on file. see: spring.datasource.url=jdbc:h2:file:./data/fund_transfer_service
 
-    - `freecurrencyapi` is used to retrieve current conversion rates. The api is free and is updated daily. For the API to work some configuration properties must be provided.
+    - [freecurrencyapi](https://freecurrencyapi.com/docs) is used to retrieve current conversion rates. The api is free and is updated daily. For the API to work some configuration properties must be provided.
         -- clients.freeCurrencyApi.base-url
         -- clients.freeCurrencyApi.api-key
       Caching is configured to cache the API response and the cache is cleared at midnight. this is done to save network overhead and to kae sure the the free api quota is not met.
         -- caching config: src/main/java/com/example/fundTransferService/external/client/FreeCurrencyApiClient.java `@Cacheable(value = "getLatestRates")`
         -- caching clearing: src/main/java/com/example/fundTransferService/external/client/FreeCurrencyApiClient.java `clearGetLatestRatesCache()`
-        More info: https://freecurrencyapi.com/docs
 
     - A variation of Strategy design pattern is used in the service:
         A) For defining 'business rules': src/main/java/com/example/fundTransferService/business/strategy/rule/FundsTransferRule.java
