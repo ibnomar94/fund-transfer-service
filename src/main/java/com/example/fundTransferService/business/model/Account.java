@@ -2,7 +2,7 @@ package com.example.fundTransferService.business.model;
 
 import java.math.BigDecimal;
 
-import com.example.fundTransferService.business.domain.Currency;
+import com.example.fundTransferService.business.domain.enums.Currency;
 import com.example.fundTransferService.exception.InsufficientFundsException;
 
 import jakarta.persistence.Column;

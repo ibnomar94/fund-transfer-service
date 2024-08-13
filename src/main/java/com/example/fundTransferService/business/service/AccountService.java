@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.example.fundTransferService.business.domain.Currency;
+import com.example.fundTransferService.business.domain.enums.Currency;
 import com.example.fundTransferService.business.domain.FundsTransferOrder;
 import com.example.fundTransferService.business.dto.requests.AccountCreationRequest;
 import com.example.fundTransferService.business.dto.requests.FundsTransferRequest;

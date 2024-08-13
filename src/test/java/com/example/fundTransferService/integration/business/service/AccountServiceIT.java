@@ -25,7 +25,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.fundTransferService.FundTransferServiceApplication;
-import com.example.fundTransferService.business.domain.Currency;
+import com.example.fundTransferService.business.domain.enums.Currency;
 import com.example.fundTransferService.business.dto.requests.FundsTransferRequest;
 import com.example.fundTransferService.business.model.Account;
 import com.example.fundTransferService.business.model.AccountHolder;

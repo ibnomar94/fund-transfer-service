@@ -1,6 +1,6 @@
 package com.example.fundTransferService.exception;
 
-import com.example.fundTransferService.business.domain.Currency;
+import com.example.fundTransferService.business.domain.enums.Currency;
 
 public class CurrencyNotSupportedException extends RuntimeException {
 

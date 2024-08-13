@@ -10,7 +10,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 
-import com.example.fundTransferService.business.domain.Currency;
+import com.example.fundTransferService.business.domain.enums.Currency;
 import com.example.fundTransferService.exception.CurrencyNotSupportedException;
 import com.example.fundTransferService.exception.UnableToRetrieveExchangeRateException;
 import com.example.fundTransferService.external.client.FreeCurrencyApiClient;

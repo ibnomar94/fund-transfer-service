@@ -1,4 +1,4 @@
-package com.example.fundTransferService.business.domain;
+package com.example.fundTransferService.business.domain.enums;
 
 public enum Currency {
 

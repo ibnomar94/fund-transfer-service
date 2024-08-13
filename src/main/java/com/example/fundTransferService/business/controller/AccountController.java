@@ -47,7 +47,8 @@ public class AccountController {
     }
 
     @Operation(summary = "Transfer Funds between two accounts",
-            description= "Funds are transferred from the debited account to the credited account, if the credited account has a different currency then an exchange of currency operation is performed")
+            description= "Funds are transferred from the debited account to the credited account, if the credited account has a different currency then an exchange of currency operation is performed. " +
+                    "NOTE: 'Amount' parameter is the amount to be transferred in DEBITED account currency")
     @PostMapping(value = "/transfer", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<FundsTransferResponse> transfer(@RequestBody @Valid FundsTransferRequest fundTransferRequest) {

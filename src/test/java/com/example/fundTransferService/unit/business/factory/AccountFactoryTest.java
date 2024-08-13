@@ -13,7 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.example.fundTransferService.business.domain.Currency;
+import com.example.fundTransferService.business.domain.enums.Currency;
 import com.example.fundTransferService.business.dto.requests.AccountCreationRequest;
 import com.example.fundTransferService.business.model.Account;
 import com.example.fundTransferService.business.model.AccountHolder;

@@ -19,7 +19,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.example.fundTransferService.business.domain.Currency;
+import com.example.fundTransferService.business.domain.enums.Currency;
 import com.example.fundTransferService.business.domain.FundsTransferOrder;
 import com.example.fundTransferService.business.dto.requests.FundsTransferRequest;
 import com.example.fundTransferService.business.respository.AccountHolderRepository;

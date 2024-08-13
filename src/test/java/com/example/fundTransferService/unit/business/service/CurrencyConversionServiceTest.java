@@ -14,7 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.example.fundTransferService.business.domain.Currency;
+import com.example.fundTransferService.business.domain.enums.Currency;
 import com.example.fundTransferService.business.service.CurrencyConversionService;
 import com.example.fundTransferService.exception.CurrencyNotSupportedException;
 import com.example.fundTransferService.external.client.FreeCurrencyApiClient;
